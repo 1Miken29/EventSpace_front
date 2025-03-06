@@ -7,6 +7,7 @@ import img99 from './img99.jpeg';
 import RegisterP from './RegisterP';
 import RegisterP2 from './RegisterP2';
 
+
 const Home = () => {
   return (
     <div className="relative h-screen overflow-hidden flex items-center justify-center">

@@ -4,8 +4,9 @@ import './index.css';
 import logo from './logo.png';
 import Button from './Button';
 import img99 from './img99.jpeg';
-import RegisterP from './RegisterP';
-import RegisterP2 from './RegisterP2';
+import RegisterC from './RegisterC';
+import RegisterC2 from './RegisterC2';
+
 
 const Home = () => {
   return (
@@ -44,8 +45,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/registerP" element={<RegisterP />} />
-        <Route path="/registerP2" element={<RegisterP2 />} />
+        <Route path="/registerC" element={<RegisterC />} />
+        <Route path="/registerC2" element={<RegisterC2 />} />
       </Routes>
     </Router>
   );
