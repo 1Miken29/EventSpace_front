@@ -12,6 +12,7 @@ import LoginP from './LoginP';
 import LoginC from './LoginC';
 import ContraP from './ContraP';
 import ContraC from './ContraC';
+import Principal from './Principal';
 
 function Inicio() {
   const navigate = useNavigate();
@@ -86,6 +87,7 @@ function Inicio() {
       <Route path="/LoginC" element={<LoginC />} />
       <Route path="/ContraP" element={<ContraP />} />
         <Route path="/ContraC" element={<ContraC />} />
+        <Route path="/Principal" element={<Principal />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

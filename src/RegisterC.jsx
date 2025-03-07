@@ -1,14 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import './index.css';
 import Button from './Button';
+import { useUser } from './UserContext';
 
 const RegisterC = () => {
   const navigate = useNavigate();
+  const regexNombre =
+    /(\W|^)[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?: [A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*(\W|$)/;
+      
+  const { updateUser } = useUser();
 
-  const handleNext = () => {
-    navigate('/registerC2');
+  const [formData, setFormData] = useState({
+    apellidoMat: "",
+    apellidoPat: "",
+    cumple: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (
+      !regexNombre.test(formData.apellidoMat) ||
+      !regexNombre.test(formData.apellidoPat)
+    ) {
+      alert("Por favor, ingresa nombres válidos.");
+      return;
+    }
+
+    if (!formData.cumple) {
+      alert("Por favor, ingresa tu fecha de nacimiento.");
+      return;
+    }
+    updateUser(formData);
+    console.log(formData);
+    navigate("/registerC2");
+  };
+
   const handleLoginC = () => {
     navigate('/LoginC');  
   }
@@ -48,33 +80,43 @@ const RegisterC = () => {
               EventSpace
             </h1>
             <h2 className="text-lg md:text-[20px] font-Outfit font-semibold py-2">
-              Para clientes
+              Para Clientes
             </h2>
           </div>
           <p className='font-Outfit text-[16px] text-center'>Crea tu usuario</p>
 
+          <form onSubmit={handleSubmit}>
           <div className="flex flex-col space-y-4">
             <div className="flex flex-col md:flex-row gap-2"> 
               <input
                 type="text"
                 placeholder="Apellido Materno*"
+                name="apellidoMat"
                 className="w-full md:w-1/2 p-2 md:p-4 border border-gray-300 rounded-xl"
+                value={formData.apellidoMat}
+                onChange={handleChange}
               />
               <input
                 type="text"
                 placeholder="Apellido Paterno*"
+                name="apellidoPat"
                 className="w-full md:w-1/2 p-2 md:p-4 border border-gray-300 rounded-xl"
+                value={formData.apellidoPat}
+                onChange={handleChange}
               />
             </div>
 
+            {/*NO SE VALIDAR ESTA COSA >:( */}
             <input
-              type="text"
+              type="date"
               placeholder="Fecha de Nacimiento (DD/MM/AAAA)"
+              name="cumple"
               className="w-full p-2 md:p-4 border border-gray-300 rounded-xl"
+              value={formData.cumple}
+              onChange={handleChange}
             />
 
-            <button className="w-full bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700"
-            onClick={handleNext}>
+            <button className="w-full bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700" type='submit'>
               Siguiente
             </button>
             <p className="text-center mt-4">
@@ -117,6 +159,7 @@ const RegisterC = () => {
             </div>
             
           </div>
+          </form>
         </div>
       </div>
     </div>

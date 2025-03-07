@@ -1,10 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.css';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import Button from './Button';
+import { useUser } from './UserContext';
 
 const RegisterC2 = () => {
   const navigate = useNavigate();
+  const regexContraseña =
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}(\W|$)/;
+  const regexEmail = /(\W|^)[\w.\-]{0,25}@(yahoo|hotmail|gmail)\.com(\W|$)/;
+  const { userData, updateUser } = useUser();
+
+  const [formData, setFormData] = useState({
+      correo: "",
+      password: "",
+    });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      !regexContraseña.test(formData.password) ||
+      !regexEmail.test(formData.correo)
+    ) {
+      alert("Por favor, ingresa correo o contraseña valida");
+      return;
+    }
+    updateUser(formData); // Guardar datos en contexto
+    console.log("Registro completo:", { ...userData, ...formData });
+    navigate("/Principal");
+  }
   const handleLoginC = () => {
     navigate('/LoginC');  
   }
@@ -48,18 +76,25 @@ const RegisterC2 = () => {
             </div>
             <p className='font-Outfit text-[16px] text-center'>Crea tu usuario</p>
   
+            <form onSubmit={handleSubmit}>
             <div className="flex flex-col space-y-4">
               <input
                 type="email"
                 placeholder="Correo Electrónico*"
+                name="correo"
                 className="w-full p-2 md:p-4 border border-gray-300 rounded-xl"
+                value={formData.correo}
+                onChange={handleChange}
               />
               
   
               <input
                 type="password"
                 placeholder="Contraseña*"
+                name="password"
                 className="w-full p-2 md:p-4 border border-gray-300 rounded-xl"
+                value={formData.password}
+                onChange={handleChange}
               />
   
               <button className="w-full bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700">
@@ -105,6 +140,7 @@ const RegisterC2 = () => {
               </div>
               
             </div>
+            </form>
           </div>
         </div>
       </div>
