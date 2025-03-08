@@ -1,14 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import './index.css';
 import Button from './Button';
+import { useUser } from './UserContext';
 
 const RegisterP = () => {
   const navigate = useNavigate();
+  const regexNombre =
+    /(\W|^)[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?: [A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*(\W|$)/;
 
-  const handleNext = () => {
-    navigate('/registerP2');
+  const { updateUser } = useUser()
+
+  const [formData, setFormData] = useState({
+      nombre: "",
+      apellidoMat: "",
+      apellidoPat: "",
+      cumple: "",
+    });
+  
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (
+      !regexNombre.test(formData.apellidoMat) ||
+      !regexNombre.test(formData.apellidoPat) ||
+      !regexNombre.test(formData.nombre)
+    ) {
+      alert("Por favor, ingresa nombres válidos.");
+      return;
+    }
+
+    if (!formData.cumple) {
+      alert("Por favor, ingresa tu fecha de nacimiento.");
+      return;
+    }
+    updateUser(formData);
+    console.log(formData);
+    navigate("/registerP2");
+  }
   const handleLoginP = () => {
     navigate('/LoginP');
   };
@@ -53,33 +86,45 @@ const RegisterP = () => {
           </div>
           <p className='font-Outfit text-[16px] text-center'>Crea tu usuario</p>
 
+          <form onSubmit={handleSubmit}>
           <div className="flex flex-col space-y-4">
             <input
               type="text"
               placeholder="Nombre(s)*"
+              name="nombre"
               className="w-full p-2 md:p-4 border border-gray-300 rounded-xl"
+              value={formData.nombre}
+              onChange={handleChange}
             />
             <div className="flex flex-col md:flex-row gap-2"> 
               <input
                 type="text"
                 placeholder="Apellido Materno*"
+                name="apellidoMat"
                 className="w-full md:w-1/2 p-2 md:p-4 border border-gray-300 rounded-xl"
+                value={formData.apellidoMat}
+                onChange={handleChange}
               />
               <input
                 type="text"
                 placeholder="Apellido Paterno*"
+                name="apellidoPat"
                 className="w-full md:w-1/2 p-2 md:p-4 border border-gray-300 rounded-xl"
+                value={formData.apellidoPat}
+                onChange={handleChange}
               />
             </div>
 
             <input
               type="text"
               placeholder="Fecha de Nacimiento (DD/MM/AAAA)"
+              name="cumple"
               className="w-full p-2 md:p-4 border border-gray-300 rounded-xl"
+              value={formData.cumple}
+              onChange={handleChange}
             />
 
             <button 
-              onClick={handleNext}
               className="w-full bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700"
             >
               Siguiente
@@ -126,6 +171,7 @@ const RegisterP = () => {
             </div>
             
           </div>
+          </form>
         </div>
       </div>
     </div>

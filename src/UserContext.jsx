@@ -11,6 +11,7 @@ export const UserProvider = ({ children }) => {
     cumple: "",
     correo: "",
     password: "",
+    isAdmin: false //si es admin es un propietario
   });
 
   // Función para actualizar los datos del usuario
@@ -18,8 +19,12 @@ export const UserProvider = ({ children }) => {
     setUserData((prev) => ({ ...prev, ...newData }));
   };
 
+  const setAdmin = (status) => {
+    setUserData((prev) => ({ ...prev, isAdmim: status }))
+  }
+
   return (
-    <UserContext.Provider value={{ userData, updateUser }}>
+    <UserContext.Provider value={{ userData, updateUser, setAdmin }}>
       {children}
     </UserContext.Provider>
   );

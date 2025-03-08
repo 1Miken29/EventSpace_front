@@ -1,9 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import './index.css';
 import Button from './Button';
+import { useUser } from './UserContext';
+import { addUser } from './utils/addUser';
 const RegisterP2 = () => {
     const navigate = useNavigate();
+    const regexContraseña =
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}(\W|$)/;
+    const regexEmail = /(\W|^)[\w.\-]{0,25}@(yahoo|hotmail|gmail)\.com(\W|$)/;
+
+    const { userData, updateUser, isAdmin } = useUser();
+
+    const [formData, setFormData] = useState({
+      correo: "",
+      password: "",
+      isAdmin: true
+    });
+
+    const handleChange = (e) => {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      if (
+        !regexContraseña.test(formData.password) ||
+        !regexEmail.test(formData.correo)
+      ) {
+        alert("Por favor, ingresa correo o contraseña valida");
+        return;
+      }
+      try {
+        const response = await addUser(formData);
+        console.log("Respuesta del servidor:", response);
+        updateUser(formData);
+      } catch (error) {
+        console.error("Error al registrar usuario.", error);
+      }
+      console.log("Registro completo:", { ...userData, ...formData });
+      navigate("/Dashboard");
+    }
 
     const handleLoginP = () => {
         navigate('/LoginP');
@@ -48,16 +85,21 @@ const RegisterP2 = () => {
             </div>
             <p className='font-Outfit text-[16px] text-center'>Crea tu usuario</p>
   
+            <form onSubmit={handleSubmit}>
             <div className="flex flex-col space-y-4">
               <input
                 type="email"
                 placeholder="Correo Electrónico*"
+                name="correo"
                 className="w-full p-2 md:p-4 border border-gray-300 rounded-xl"
+                onChange={handleChange}
               />
               <input
                 type="password"
                 placeholder="Contraseña*"
+                name="password"
                 className="w-full p-2 md:p-4 border border-gray-300 rounded-xl"
+                onChange={handleChange}
               />
   
               <button className="w-full bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700">
@@ -105,6 +147,7 @@ const RegisterP2 = () => {
               </div>
               
             </div>
+            </form>
           </div>
         </div>
       </div>
