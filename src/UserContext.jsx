@@ -5,26 +5,34 @@ const UserContext = createContext();
 
 // Proveedor del contexto
 export const UserProvider = ({ children }) => {
+  const [user, setUser] = useState(false)
   const [userData, setUserData] = useState({
-    apellidoMat: "",
-    apellidoPat: "",
-    cumple: "",
-    correo: "",
+    nombre: "",
+    apellidoPaterno: "",
+    apellidoMaterno: "",
+    fechaNacimiento: "",
+    telefono: "",
+    email: "",
     password: "",
-    isAdmin: false //si es admin es un propietario
   });
 
-  // Función para actualizar los datos del usuario
-  const updateUser = (newData) => {
-    setUserData((prev) => ({ ...prev, ...newData }));
+  const savePersonalData = (personalData) => {
+    setUserData((prevData) => ({
+      ...prevData,
+      ...personalData,
+    }));
   };
 
-  const setAdmin = (status) => {
-    setUserData((prev) => ({ ...prev, isAdmim: status }))
-  }
+  const saveCredentials = (credentials) => {
+    setUserData((prevData) => ({
+      ...prevData,
+      ...credentials,
+    }));
+    setUser(true);
+  };
 
   return (
-    <UserContext.Provider value={{ userData, updateUser, setAdmin }}>
+    <UserContext.Provider value={{ user ,userData, savePersonalData, saveCredentials }}>
       {children}
     </UserContext.Provider>
   );

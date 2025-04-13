@@ -1,29 +1,23 @@
 import React from 'react';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import './index.css';
-import salon from './salon.jpg';
-import RegisterP from './RegisterP';
-import RegisterP2 from './RegisterP2';  
-import AppC from './AppC';
-import AppP from './AppP';
-import RegisterC from './RegisterC';
-import RegisterC2 from './RegisterC2';
-import LoginP from './LoginP'; 
-import LoginC from './LoginC';
-import ContraP from './ContraP';
-import ContraC from './ContraC';
-import Principal from './Principal';
-import Dashboard from './Dashboard';
+import salon from './assets/salon.jpg';
+import RegisterP from './modules/registro/RegisterP';
+import RegisterP2 from './modules/registro/RegisterP2';  
+import LoginP from './modules/autenticacion/LoginP'; 
+import ContraP from './modules/autenticacion/ContraP';
+import Dashboard from './modules/salones/Dashboard';
+import RegisterS from './modules/salones/RegistroS';
+import Perfil from './modules/usuario/Perfil';
+import { useUser } from './UserContext';
 
 function Inicio() {
   const navigate = useNavigate();
 
+  const { user } = useUser()
+
   const handlePropietarioClick = () => {
     navigate('/registerP');  
-  };
-
-  const handleClienteClick = () => {
-    navigate('/registerC');  
   };
 
   return (
@@ -32,7 +26,8 @@ function Inicio() {
         <div className="relative h-screen">
           {/* Header */}
           <div className="absolute top-0 left-0 right-0 bg-white h-16 md:h-22 z-10 flex items-center px-4 md:px-10">
-            <h1 className="text-lg md:text-xl font-Outfit font-semibold">EventSpace</h1>
+            <img src="src/assets/icon.png" className='w-12 h-12 mx-4'/>
+            <h1 className="text-xl md:text-2xl font-Outfit font-semibold">EventSpace</h1>
           </div>
 
           {/* Fondo con imagen */}
@@ -55,9 +50,6 @@ function Inicio() {
                 <h3 className='text-white font-semibold font-Rubik text-lg md:text-xl text-center md:text-left'>
                   ¿Quieres hacer crecer tu negocio?
                 </h3>
-                <h3 className='text-white font-semibold font-Rubik text-lg md:text-xl text-center md:text-left'>
-                  ¿Quieres reservar un salón?
-                </h3>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 md:gap-45 py-4 md:py-5">
@@ -66,13 +58,7 @@ function Inicio() {
                   className="w-full sm:w-auto bg-white hover:bg-gray-100 text-black font-semibold py-2 md:py-3 px-6 md:px-10 rounded-full text-sm md:text-base"
                 >
                   Inicia como Propietario
-                </button>
-                <button 
-                  onClick={handleClienteClick}
-                  className="w-full sm:w-auto bg-white hover:bg-gray-100 text-black font-semibold py-2 md:py-3 px-6 md:px-10 rounded-full text-sm md:text-base"
-                >
-                  Inicia como Cliente
-                </button>    
+                </button>   
               </div>
             </div>
           </div>
@@ -80,16 +66,11 @@ function Inicio() {
       } />
       <Route path="/registerP" element={<RegisterP />} />
       <Route path="/registerP2" element={<RegisterP2 />} />  
-      <Route path="/appC" element={<AppC />} />
-      <Route path="/appP" element={<AppP />} />  
-      <Route path="/registerC" element={<RegisterC />} />
-      <Route path="/registerC2" element={<RegisterC2 />} />
       <Route path="/LoginP" element={<LoginP />} />
-      <Route path="/LoginC" element={<LoginC />} />
       <Route path="/ContraP" element={<ContraP />} />
-        <Route path="/ContraC" element={<ContraC />} />
-        <Route path="/Principal" element={<Principal />} />
-        <Route path="/Dashboard" element={<Dashboard />} />
+      <Route path="/Dashboard" element={<Dashboard />} />
+      <Route path="/registerS" element={<RegisterS />} />
+      <Route path="/perfil" element={<Perfil />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

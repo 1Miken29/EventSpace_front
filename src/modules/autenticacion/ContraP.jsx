@@ -1,17 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
-import './index.css';
-import Button from './Button';
+import { BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
+import '../../index.css';
+import Button from '../../Button';
 
-const LoginP = () => {
-  const navigate = useNavigate();
-
-    const handleRegisterP = () => {
-      navigate('/RegisterP');
-    };
-    const handleContraP = () => {
-      navigate('/ContraP');
-  };
+const ContraP = () => {
   return (
     <div className="flex flex-col md:flex-row h-screen">
       {/* Lado izquierdo */}
@@ -21,11 +13,11 @@ const LoginP = () => {
             ¡Te damos la bienvenida a Event Space para Propetarios!
           </h1>
           <h2 className="text-xl md:text-2xl lg:text-[32px] font-Outfit mb-4 md:mb-8 leading-normal">
-            Inicia Sesión para potenciar tu negocio
+            Regístrate para potenciar tu negocio
           </h2>
           <ul className="space-y-3 md:space-y-6 mb-4 md:mb-8">
             <li className="font-Outfit text-lg md:text-xl lg:text-[24px] leading-relaxed">
-              Publica tus Salones disponibles
+            Publica tus Salones disponibles
             </li>
             <li className="font-Outfit text-lg md:text-xl lg:text-[24px] leading-relaxed">
               Gestiona Reservas y Clientes
@@ -50,38 +42,22 @@ const LoginP = () => {
               Propetarios
             </h2>
           </div>
-          <p className='font-Outfit text-[16px] text-center'>Inicia sesión</p>
+          <p className='font-Outfit text-[16px] text-center'>¿Olvidaste tu contraseña?</p>
+          <p>Introduce tu dirección de correo electrónico para restablecer tu contraseña</p>
 
           <div className="flex flex-col space-y-4">
-            
-
             <input
               type="email"
-              placeholder="Correo Electrónico*"
+              placeholder="Correo electrónico*"
               className="w-full p-2 md:p-4 border border-gray-300 rounded-xl"
             />
-            <input
-                type="password"
-                placeholder="Contraseña*"
-                className="w-full p-2 md:p-4 border border-gray-300 rounded-xl"
-              />
-            <a href='#' className="text-center mt-4" 
-              onClick={handleContraP}>
-              ¿Olvidaste tu contraseña?
-            </a>
-            <button 
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700"
-            >
-              Inicia Sesión
+            <button className="w-full bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700">
+              Enviar Correo
             </button>
-            <p className="text-center mt-4">
-              ¿Aún no tienes una cuenta?{" "}
-              <a href="#" className="text-black-500 font-semibold"
-              onClick={handleRegisterP}>
-                Registrate
-              </a>
-            </p>
-
+            <button className="w-full text-black py-2 px-4 rounded-full">
+              Volver a EventSpace
+           </button>
+            
             <div className="flex justify-center">
               <button
                 aria-label="Sign in with Google"
@@ -119,4 +95,4 @@ const LoginP = () => {
     </div>
   );
 };
-export default LoginP;
+export default ContraP;
