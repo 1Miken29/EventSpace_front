@@ -18,7 +18,7 @@ function Inicio() {
     <div className="relative h-screen">
       {/* Header */}
       <div className="absolute top-0 left-0 right-0 bg-white h-16 md:h-22 z-10 flex items-center px-4 md:px-10">
-        <img src="src/assets/icon.png" className="w-12 h-12 mx-4" />
+        <img src="src/assets/icon.jpg" className="w-12 h-12 mx-4" />
         <h1 className="text-xl md:text-2xl font-outfit-semibold">
           EventSpace
         </h1>

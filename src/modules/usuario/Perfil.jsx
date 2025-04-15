@@ -35,8 +35,8 @@ export default function Perfil() {
 
   return (
     <>
-      <header className="px-11 py-[18px] flex flex-row justify-between items-center">
-        <h1 className="font-Outfit font-semibold text-4xl">Perfil</h1>
+      <header className="px-11 py-[18px] flex flex-row justify-between items-center font-outfit">
+        <h1 className="font-outfit-semibold text-4xl">Perfil</h1>
         <div className="flex flex-row gap-[70px] mx-8">
           <button
             className="flex flex-col cursor-pointer justify-center items-center"
@@ -54,11 +54,11 @@ export default function Perfil() {
           </button>
         </div>
       </header>
-      <div className="flex flex-row font-medium">
+      <div className="flex flex-row font-outfit-medium">
         <div className="flex-1/3 flex flex-col bg-[#8B5DFF]/10 items-center h-screen py-[30px]">
           <div className="mb-[45px]">
             <img
-              src="src/assets/icon.png"
+              src="src/assets/icon.jpg"
               className="w-36 h-36 rounded-full mb-3"
             />
             <h1 className="text-2xl">{user.nombre + " " + user.apellidoPaterno}</h1>

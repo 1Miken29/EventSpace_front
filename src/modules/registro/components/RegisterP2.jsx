@@ -4,7 +4,7 @@ import "../../../index.css";
 import { useUser } from "../../../hooks/UserContext";
 import { IconlyHide, IconlyShow } from "../icons/Icons";
 import Bullet from "./Bullet";
-import Toast from "../../components/Toast";
+import Toast from "../../../components/LayoutForm";
 
 const RegisterP2 = ({ onBack }) => {
   const navigate = useNavigate();
@@ -86,7 +86,7 @@ const RegisterP2 = ({ onBack }) => {
       <div className="w-full max-w-sm space-y-4 bg-white p-4 md:p-6 lg:p-8 rounded-4xl mx-auto shadow-form">
         <div className="flex flex-col md:flex-row items-center md:items-center justify-between mb-4 space-y-2 md:space-y-1">
           <div className="flex flex-row items-center gap-2 border-r border-r-black pr-2 py-1">
-            <img src="src/assets/icon.png" className="w-12 h-12" />
+            <img src="src/assets/icon.jpg" className="w-12 h-12" />
             <h1 className="text-xl md:text-[30px] font-outfit-semibold">
               EventSpace
             </h1>
@@ -144,7 +144,7 @@ const RegisterP2 = ({ onBack }) => {
             </div>
             <label className="flex flex-row items-center text-xs">
               <input type="checkbox" onChange={() => setIsCheck(!isCheck)} className="w-4 h-4 mx-3" />
-              He leído y acepto los Términos y Condiciones
+              He leído y acepto los <a href="/terminos-y-condiciones" target="_blank" className="transition-all text-blue-400 ml-[2px] cursor-pointer hover:text-blue-600">Términos y Condiciones</a>
             </label>
             <div className="flex flex-row gap-2">
               <button

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../index.css";
 import { useUser } from "../../../hooks/UserContext";
-import Toast from "../../components/Toast";
+import Toast from "../../../components/Toast";
 
 export default function RegisterP({onNext}){
   const navigate = useNavigate();
@@ -76,7 +76,7 @@ export default function RegisterP({onNext}){
         {/*shadow-form para ver*/}
         <div className="flex flex-col md:flex-row items-center md:items-center justify-between mb-4 space-y-2 md:space-y-1">
           <div className="flex flex-row items-center gap-2 border-r border-r-black pr-2 py-1">
-            <img src="src/assets/icon.png" className="w-12 h-12" />
+            <img src="src/assets/icon.jpg" className="w-12 h-12" />
             <h1 className="text-xl md:text-[30px] font-outfit-semibold">
               EventSpace
             </h1>

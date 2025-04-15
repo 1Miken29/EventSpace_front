@@ -5,3 +5,11 @@ export const IconlyCloseSquare = ({ size = 57, color = "#EA4335"}) => {
 		</svg> 
 		) 
 }
+export const IconlyArrowRight = ({ size = 24, color = "#000000"}) => {
+    return (
+		<svg width={size} height={size} viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path fillRule="evenodd" clipRule="evenodd" d="M3.99988 11.2501L19.9001 11.2501L19.9001 12.7501L3.99988 12.7501L3.99988 11.2501Z" fill={color}></path>
+		<path fillRule="evenodd" clipRule="evenodd" d="M12.6394 18.0224L18.6872 11.9996L12.6394 5.97783L13.6978 4.91489L20.813 11.9995L13.6979 19.0852L12.6394 18.0224Z" fill={color}></path>
+		</svg> 
+		) 
+}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import LayoutForm from "../components/LayoutForm";
+import LayoutForm from "../../components/LayoutForm";
 import RegisterP from "../registro/components/RegisterP"
 import RegisterP2 from "../registro/components/RegisterP2"
 import { motion, AnimatePresence } from "motion/react";

@@ -48,7 +48,7 @@ export default function RegisterS() {
   return (
     <>
       <div className="flex items-center justify-center h-screen">
-        <form onSubmit={handleSubmit} className="flex flex-row gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-row gap-4 font-outfit">
           <div className="flex flex-col w-[350px] p-9 border border-[#8B5DFF]/70 bg-[#8B5DFF]/10 rounded-4xl gap-2">
             <span className="text-[#8B5DFF] font-semibold">
               Nombre del salón

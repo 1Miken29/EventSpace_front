@@ -6,7 +6,7 @@ import { useSalon } from "../../hooks/SalonContext";
 export default function Dashboard() {
   const navigate = useNavigate();
 
-  const { salon, salonData } = useSalon()
+  const { salon } = useSalon()
 
   const handleRegister = () => {
     navigate("/registerS");
@@ -21,7 +21,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <header className="px-11 py-[18px] flex flex-row justify-between items-center">
+      <header className="px-11 py-[18px] flex flex-row justify-between items-center font-outfit">
         <h1 className="font-outfit-semibold text-4xl">Perfil</h1>
         <div className="flex flex-row gap-[70px] mx-8">
           <button
@@ -40,7 +40,7 @@ export default function Dashboard() {
           </button>
         </div>
       </header>
-      <div className={`flex flex-col h-screen font-medium ${salon ? "p-11" : "justify-center items-center"}`}>
+      <div className={`flex flex-col h-screen font-outfit-medium ${salon ? "p-11" : "justify-center items-center"}`}>
         {salon ? (
           <CardSalon salon={salon}/>
         ) : (

@@ -8,14 +8,14 @@ export default function CardSalon({ salon }) {
   }
   return (
     <button onClick={handleClick} className="cursor-pointer w-[300px] h-[340px] rounded-3xl text-white flex flex-row justify-between border relative bg-gradient-to-t from-black to-45% to-transparent">
-      <img src="src/assets/salon.png" className="absolute mix-blend-overlay" />
+      <img src="src/assets/cardSalon.jpg" className="absolute mix-blend-overlay" />
       <div className="flex flex-col justify-end items-start py-6 px-3">
-        <p className="font-bold text-xl">{salon.nombre}</p>
+        <p className="font-outfit-bold text-xl">{salon.nombre}</p>
         <p className="my-2.5">{salon.ubicacion}</p>
-        <p className="font-bold text-xl">$123</p>
+        <p className="font-outfit-bold text-xl">$123</p>
       </div>
       <div className="flex flex-col justify-between py-6 px-3">
-        <div className="bg-white/90 px-2.5 py-1 flex flex-row items-center justify-between rounded-2xl">
+        <div className="bg-white px-2.5 py-1 flex flex-row items-center justify-between rounded-2xl">
           <IconlyStar />
           <p className="text-xs text-blue-500">4.8</p>
         </div>
