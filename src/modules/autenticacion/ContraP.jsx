@@ -1,70 +1,58 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
-import '../../index.css';
-import Button from '../../Button';
+import React from "react";
+import LayoutForm from "../components/LayoutForm";
+import "../../index.css";
 
 const ContraP = () => {
   return (
-    <div className="flex flex-col md:flex-row h-screen">
-      {/* Lado izquierdo */}
-      <div className="w-full md:w-1/2 bg-white p-4 md:p-8 lg:p-16 xl:p-30 overflow-hidden">
-        <div className="max-w-xl mx-auto">
-          <h1 className="text-2xl md:text-3xl lg:text-[40px] font-Outfit mb-4 md:mb-6 font-bold leading-tight">
-            ¡Te damos la bienvenida a Event Space para Propetarios!
-          </h1>
-          <h2 className="text-xl md:text-2xl lg:text-[32px] font-Outfit mb-4 md:mb-8 leading-normal">
-            Regístrate para potenciar tu negocio
-          </h2>
-          <ul className="space-y-3 md:space-y-6 mb-4 md:mb-8">
-            <li className="font-Outfit text-lg md:text-xl lg:text-[24px] leading-relaxed">
-            Publica tus Salones disponibles
-            </li>
-            <li className="font-Outfit text-lg md:text-xl lg:text-[24px] leading-relaxed">
-              Gestiona Reservas y Clientes
-            </li>
-            <li className="font-Outfit text-lg md:text-xl lg:text-[24px] leading-relaxed">
-              Completa tu perfil y comparte tus propiedades para conectar con más clientes.
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      {/* Lado derecho */}
-      <div className="w-full md:w-1/2 bg-[#c3b6e3] flex items-center justify-center p-4">
-        <div className="w-full max-w-sm space-y-4 bg-white p-4 md:p-6 lg:p-8 rounded-2xl mx-auto"
-          style={{ borderRadius: "2rem" }}
-        >
-          <div className="flex flex-col md:flex-row items-center md:items-start justify-between mb-4 space-y-2 md:space-y-1">
-            <h1 className="text-2xl md:text-[30px] font-Outfit font-semibold">
+    <LayoutForm>
+      <div className="w-full max-w-sm space-y-4 bg-white p-4 md:p-6 lg:p-8 rounded-4xl mx-auto shadow-form">
+        <div className="flex flex-col md:flex-row items-center md:items-center justify-between mb-4 space-y-2 md:space-y-1">
+          <div className="flex flex-row items-center gap-2 border-r border-r-black pr-2 py-1">
+            <img src="src/assets/icon.png" className="w-12 h-12" />
+            <h1 className="text-xl md:text-[30px] font-outfit-semibold">
               EventSpace
             </h1>
-            <h2 className="text-lg md:text-[20px] font-Outfit font-semibold py-2">
-              Propetarios
-            </h2>
           </div>
-          <p className='font-Outfit text-[16px] text-center'>¿Olvidaste tu contraseña?</p>
-          <p>Introduce tu dirección de correo electrónico para restablecer tu contraseña</p>
+          <h2 className="text-sm md:text-base font-outfit-semibold">
+            Propietarios
+          </h2>
+        </div>
+        <p className="font-outfit text-[16px] text-center">
+          ¿Olvidaste tu contraseña?
+        </p>
+        <p className="font-outfit text-center">
+          Introduce tu dirección de correo electrónico para restablecer tu
+          contraseña
+        </p>
 
+        <form className="font-outfit">
           <div className="flex flex-col space-y-4">
             <input
               type="email"
               placeholder="Correo electrónico*"
               className="w-full p-2 md:p-4 border border-gray-300 rounded-xl"
             />
-            <button className="w-full bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700">
+            <button className="flex flex-row justify-center items-center w-full transition-all duration-200 cursor-pointer bg-blue-500 text-white py-4 px-4 rounded-full hover:bg-blue-700">
               Enviar Correo
             </button>
-            <button className="w-full text-black py-2 px-4 rounded-full">
+            <button
+              type="button"
+              className="transition-all duration-200 text-black-500 font-semibold cursor-pointer hover:text-gray-700"
+            >
               Volver a EventSpace
-           </button>
-            
+            </button>
+
             <div className="flex justify-center">
               <button
                 aria-label="Sign in with Google"
                 className="flex items-center bg-white border border-button-border-light rounded-full p-0.5 pr-4"
               >
                 <div className="flex items-center justify-center bg-white w-9 h-9 rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    className="w-5 h-5"
+                  >
                     <title>Continua con Google</title>
                     <desc>Google G Logo</desc>
                     <path
@@ -85,14 +73,15 @@ const ContraP = () => {
                     ></path>
                   </svg>
                 </div>
-                <span className="text-sm text-google-text-gray tracking-wider">Continua con Google</span>
+                <span className="text-sm text-google-text-gray tracking-wider">
+                  Continua con Google
+                </span>
               </button>
             </div>
-            
           </div>
-        </div>
+        </form>
       </div>
-    </div>
+    </LayoutForm>
   );
 };
 export default ContraP;

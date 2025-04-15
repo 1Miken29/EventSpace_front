@@ -9,25 +9,15 @@ import {
   IconlyProfileBold,
   IconlyWallet,
 } from "./icons/Icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PerfilUser from "./components/Perfil";
-import { useUser } from "../../UserContext";
+import { useUser } from "../../hooks/UserContext";
+import CierreSesion from "./components/CierreSesion";
 
 export default function Perfil() {
   const navigate = useNavigate();
-  const { savePersonalData } = useUser()
-
-  useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) {
-      const user = JSON.parse(savedUser);
-      console.log("Usuario persistido:", user);
-      // Opcional: actualiza tu estado
-      savePersonalData(user);
-    }
-  }, []);
+  const { user } = useUser()
   
-
   const [activeTab, setActiveTab] = useState("Mis reservas")
   const tabs = [
     { text: "Mis reservas", img: IconlyCalendar },
@@ -71,7 +61,7 @@ export default function Perfil() {
               src="src/assets/icon.png"
               className="w-36 h-36 rounded-full mb-3"
             />
-            <h1 className="text-2xl">Adrian Hajdin</h1>
+            <h1 className="text-2xl">{user.nombre + " " + user.apellidoPaterno}</h1>
           </div>
           <div className="flex flex-col gap-3">
             {tabs.map((tab) => (
@@ -94,9 +84,9 @@ export default function Perfil() {
           {activeTab === "Perfil" && <PerfilUser />}
           {activeTab === "Notificaciones" && <p>Contenido de notificaciones</p>}
           {activeTab === "Salir de la cuenta" && (
-            <button onClick={() => console.log("Cerrando sesión")}>
-              ¿Seguro que quieres salir?
-            </button>
+            <div className="flex h-10/12 justify-center items-center">
+              <CierreSesion />
+            </div>
           )}
         </div>
       </div>

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LayoutForm from "../components/LayoutForm";
-import "../../index.css";
-import { IconlyHide, IconlyShow } from "./icons/Icons";
-import Bullet from "../registro/components/Bullet";
+import "../../../index.css";
+import { useUser } from "../../../hooks/UserContext";
+import { IconlyHide, IconlyShow } from "../icons/Icons";
+import Bullet from "./Bullet";
+import Toast from "../../components/Toast";
 
-const LoginP = () => {
+const RegisterP2 = ({ onBack }) => {
   const navigate = useNavigate();
   const bulletlist = [
     { text: "Al menos 8 caracteres", regex: /.{8,}/ },
@@ -14,14 +15,30 @@ const LoginP = () => {
     { text: "Número (0-9)", regex: /\d/ },
     { text: "Caracteres especiales (@$!%*?&)", regex: /[@$!%*?&]/ },
   ];
+  const regexContraseña =
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}(\W|$)/;
+  const regexEmail = /(\W|^)[\w.\-]{0,25}@(yahoo|hotmail|gmail)\.com(\W|$)/;
 
-  const [showRequisitos, setShowRequisitos] = useState(false);
+  const { userData, saveCredentials } = useUser();
+
+  const [toast, setToast] = useState(null);
+  const [isCheck, setIsCheck] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [isHide, setIsHide] = useState(true);
+  const [showRequisitos, setShowRequisitos] = useState(false);
+  const [isFormLoading, setIsFormLoading] = useState(false);
+
+  const showToast = (message, type = "success") => {
+    setToast({ message, type });
+    setIsVisible(true);
+    setTimeout(() => setIsVisible(false), 3000);
+  };
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     isAdmin: true,
-  })
+  });
 
   const bulletsToShow = bulletlist.map((rule) => ({
     text: rule.text,
@@ -29,18 +46,43 @@ const LoginP = () => {
   }));
   const allReady = bulletsToShow.every((b) => b.isReady);
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  const handleRegisterP = () => {
-    navigate("/registro");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsFormLoading(true);
+
+    if (
+      !regexContraseña.test(formData.password) ||
+      !regexEmail.test(formData.email)
+    ) {
+      showToast("Por favor, ingresa correo o contraseña valida", "error");
+      setIsFormLoading(false)
+      return;
+    }
+
+    if(!isCheck){
+      showToast("Acepta los términos y condiciones", "error")
+      setIsFormLoading(false)
+      return;
+    }
+
+    setTimeout(() => {
+      saveCredentials(formData);
+      localStorage.setItem("user", JSON.stringify(userData));
+      console.log("Registro completo:", { ...userData });
+      setIsFormLoading(false);
+      navigate("/Dashboard");
+    }, 2000);
   };
-  const handleContraP = () => {
-    navigate("/ContraP");
-  };
+
   const handleLoginP = () => {
-    navigate("/Dashboard");
+    navigate("/LoginP");
   };
   return (
-    <LayoutForm>
+    <>
       <div className="w-full max-w-sm space-y-4 bg-white p-4 md:p-6 lg:p-8 rounded-4xl mx-auto shadow-form">
         <div className="flex flex-col md:flex-row items-center md:items-center justify-between mb-4 space-y-2 md:space-y-1">
           <div className="flex flex-row items-center gap-2 border-r border-r-black pr-2 py-1">
@@ -53,14 +95,17 @@ const LoginP = () => {
             Propietarios
           </h2>
         </div>
-        <p className="font-outfit text-[16px] text-center">Inicia sesión</p>
+        <p className="font-outfit text-[16px] text-center">Crea tu usuario</p>
 
-        <form onSubmit={handleLoginP} className="font-outfit">
+        <form onSubmit={handleSubmit} className="font-outfit">
           <div className="flex flex-col space-y-4">
             <input
               type="email"
               placeholder="Correo Electrónico*"
+              name="email"
+              value={formData.email}
               className="w-full p-2 md:p-4 border border-gray-300 rounded-xl"
+              onChange={handleChange}
             />
             <div className="flex flex-row items-center border border-gray-300 rounded-xl p-2 md:p-4 focus-within:border-black focus-within:border-2">
               <input
@@ -68,6 +113,8 @@ const LoginP = () => {
                 placeholder="Contraseña*"
                 name="password"
                 className="w-full outline-none"
+                value={formData.password}
+                onChange={handleChange}
                 onFocus={() => setShowRequisitos(true)}
                 onBlur={() => setShowRequisitos(false)}
               />
@@ -95,25 +142,35 @@ const LoginP = () => {
                 <Bullet key={index} text={b.text} isReady={b.isReady} />
               ))}
             </div>
-            <a
-              href=""
-              className="transition-all text-center duration-200 text-black-500 font-semibold cursor-pointer hover:text-gray-700"
-              onClick={handleContraP}
-            >
-              ¿Olvidaste tu contraseña?
-            </a>
-            <button className="flex flex-row justify-center items-center w-full transition-all duration-200 cursor-pointer bg-blue-500 text-white py-4 px-4 rounded-full hover:bg-blue-700">
-              Iniciar Sesión
-            </button>
-            <p className="text-center">
-              ¿Aún no tienes una cuenta?{" "}
-              <a
-                href=""
-                className="transition-all duration-200 text-black-500 font-semibold cursor-pointer hover:text-gray-700"
-                onClick={handleRegisterP}
+            <label className="flex flex-row items-center text-xs">
+              <input type="checkbox" onChange={() => setIsCheck(!isCheck)} className="w-4 h-4 mx-3" />
+              He leído y acepto los Términos y Condiciones
+            </label>
+            <div className="flex flex-row gap-2">
+              <button
+                onClick={onBack}
+                className="flex flex-row justify-center items-center w-full transition-all duration-200 cursor-pointer bg-blue-500 text-white py-4 px-4 rounded-full hover:bg-blue-700"
               >
-                Registrate
-              </a>
+                Atras
+              </button>
+              <button
+                className={`flex flex-row justify-center items-center w-full transition-all duration-200 cursor-pointer bg-blue-500 text-white py-4 px-4 rounded-full hover:bg-blue-700 ${
+                  isFormLoading ? "animate-pulse" : ""
+                }`}
+                disabled={isFormLoading}
+              >
+                {isFormLoading ? "Cargando..." : "Siguiente"}
+              </button>
+            </div>
+            <p className="text-center">
+              ¿Ya tienes una cuenta?{" "}
+              <button
+                type="button"
+                onClick={handleLoginP}
+                className="transition-all  duration-200 text-black-500 font-semibold cursor-pointer hover:text-gray-700"
+              >
+                Inicia sesión
+              </button>
             </p>
 
             <div className="flex justify-center">
@@ -155,7 +212,14 @@ const LoginP = () => {
           </div>
         </form>
       </div>
-    </LayoutForm>
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          isVisible={isVisible}
+        />
+      )}
+    </>
   );
 };
-export default LoginP;
+export default RegisterP2;
