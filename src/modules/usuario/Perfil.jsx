@@ -13,14 +13,15 @@ import { useState } from "react";
 import PerfilUser from "./components/Perfil";
 import { useUser } from "../../hooks/UserContext";
 import CierreSesion from "./components/CierreSesion";
+import Reservas from "./components/Reservas";
 
 export default function Perfil() {
   const navigate = useNavigate();
   const { user } = useUser()
   
-  const [activeTab, setActiveTab] = useState("Mis reservas")
+  const [activeTab, setActiveTab] = useState("Reservas")
   const tabs = [
-    { text: "Mis reservas", img: IconlyCalendar },
+    { text: "Reservas", img: IconlyCalendar },
     { text: "Pagos", img: IconlyWallet },
     { text: "Perfil", img: IconlyProfile },
     { text: "Notificaciones", img: IconlyNotification },
@@ -78,8 +79,8 @@ export default function Perfil() {
           </div>
         </div>
         {/*Parte Derecha*/}
-        <div className="flex-2/3 flex flex-col h-screen mx-11">
-          {activeTab === "Mis reservas" && <p>Contenido de reservas</p>}
+        <div className="flex-2/3 flex flex-col h-screen mx-11 my-5">
+          {activeTab === "Reservas" && <Reservas />}
           {activeTab === "Pagos" && <p>Contenido de pagos</p>}
           {activeTab === "Perfil" && <PerfilUser />}
           {activeTab === "Notificaciones" && <p>Contenido de notificaciones</p>}

@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { AnimatePresence, motion } from "motion/react";
 import {
   IconlyArrowLeft,
+  IconlyDelete,
+  IconlyEdit,
   IconlyHomeBold,
   IconlyLocation,
   IconlyProfile,
@@ -16,6 +19,7 @@ export default function Salon() {
 
   const { salon } = useSalon();
 
+  const [isHover, setIsHover] = useState(false);
   const [activeImg, setActiveImg] = useState(0);
 
   const handlePerfil = () => {
@@ -46,7 +50,7 @@ export default function Salon() {
           </button>
         </div>
       </header>
-      <div className="overflow-y-auto h-[calc(100vh-70px)] font-outfit">
+      <div className="overflow-y-auto overflow-x-hidden h-[calc(100vh-70px)] font-outfit">
         <div className="border border-[#C4C4C4] px-6 py-2 flex flex-row justify-between items-center">
           <button
             className=" cursor-pointer"
@@ -55,12 +59,26 @@ export default function Salon() {
             <IconlyArrowLeft />
           </button>
           <div className="flex flex-row gap-4">
-            <button className="border border-[#8B5DFF] font-outfit-semibold text-white px-9 py-2 rounded-4xl bg-[#8B5DFF] cursor-pointer">
-              Eliminar salon
-            </button>
-            <button className="border border-[#8B5DFF] font-outfit-semibold text-white px-9 py-2 rounded-4xl bg-[#8B5DFF] cursor-pointer">
-              Editar salon
-            </button>
+            <motion.button
+              onMouseEnter={() => setIsHover(true)}
+              onMouseLeave={() => setIsHover(false)}
+              initial={{ width: "48px" }}
+              animate={{ width: isHover ? "180px" : "48px" }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              className="border border-[#EA4335] font-outfit-semibold text-white px-3 py-2 rounded-4xl bg-[#EA4335] cursor-pointer flex items-center gap-3"
+            >
+              <div className="min-w-[20px] flex justify-center items-center">
+                <IconlyDelete />
+              </div>
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: isHover ? 1 : 0 }}
+                transition={{ duration: 0.2 }}
+                className="whitespace-nowrap"
+              >
+                Eliminar salón
+              </motion.span>
+            </motion.button>
           </div>
         </div>
         <div className="px-16 py-6 flex flex-row gap-10">
@@ -82,16 +100,14 @@ export default function Salon() {
                 />
               ))}
             </div>
-            <h1 className="text-xl font-outfit-bold">Descripcion del salon</h1>
-            <p>{salon.descripcion}</p>
-            <h1 className="text-xl font-outfit-bold">Amenidades</h1>
-            <p>Aun en construcción 🚧</p>
           </div>
           <div className="w-1/3">
             <h1 className="text-2xl font-outfit-bold">{salon.nombre}</h1>
             <div className="flex flex-row items-center gap-3 my-4">
               <div className="px-2.5 py-1.5 rounded-2xl bg-[#8B5DFF]/10">
-                <p className="text-xs text-[#8B5DFF] font-outfit-bold">{salon.tipo}</p>
+                <p className="text-xs text-[#8B5DFF] font-outfit-bold">
+                  {salon.tipo}
+                </p>
               </div>
               <div className="flex flex-row items-center gap-2">
                 <IconlyStar size="20" />
@@ -103,7 +119,9 @@ export default function Salon() {
                 <div className="p-2 bg-[#8B5DFF]/10 rounded-full">
                   <Iconlyuser />
                 </div>
-                <p>{salon.capacidad} personas</p>
+                <p>
+                  {salon.capacidadMin} a {salon.capacidadMax}
+                </p>
               </div>
               <div className="flex flex-row gap-2 items-center">
                 <div className="p-2 bg-[#8B5DFF]/10 rounded-full">
@@ -114,6 +132,10 @@ export default function Salon() {
                 </p>
               </div>
             </div>
+            <h1 className="text-xl font-outfit-bold">Descripcion del salon</h1>
+            <p>{salon.descripcion}</p>
+            <h1 className="text-xl font-outfit-bold">Amenidades</h1>
+            <p>Aun en construcción 🚧</p>
             <h1 className="text-xl font-outfit-bold">Ubicación</h1>
             <div className="flex flex-row items-center gap-2 my-2">
               <IconlyLocation />
@@ -122,24 +144,13 @@ export default function Salon() {
             <div className="my-2">
               <p>mapa</p>
             </div>
+            <button className="flex flex-row items-center gap-2 border border-[#8B5DFF] font-outfit-semibold text-white px-5 py-2 rounded-4xl my-3 bg-[#8B5DFF] cursor-pointer transition-all duration-200 hover:bg-[#6b569e] hover:border-[#6b569e]">
+              Editar salon
+              <IconlyEdit />
+            </button>
             <div>
-              <h1 className="text-xl font-outfit-bold">Servicios</h1>
-              <table className="w-full my-3">
-                <tr className="bg-[#31137E]/30">
-                  <th className="p-2 border border-[#31137E]/40">Servicio</th>
-                  <th className="p-2 border border-[#31137E]/40">Costo</th>
-                </tr>
-                <tr>
-                  <td className="p-2 border border-[#31137E]/40 text-center">
-                    x
-                  </td>
-                  <td className="p-2 border border-[#31137E]/40 text-center">
-                    $x
-                  </td>
-                </tr>
-              </table>
-              <button className="border border-[#8B5DFF] font-outfit-semibold text-white px-9 py-2 rounded-4xl bg-[#8B5DFF] cursor-pointer">
-                Editar
+              <button onClick={() => navigate(`/servicios/${salon.id}`)} className="border border-[#8B5DFF] font-outfit-semibold text-white px-5 py-2 rounded-4xl bg-[#8B5DFF] cursor-pointer transition-all duration-200 hover:bg-[#6b569e] hover:border-[#6b569e]">
+                Ir al panel de administración
               </button>
             </div>
           </div>

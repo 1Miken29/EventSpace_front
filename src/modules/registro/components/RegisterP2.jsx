@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../index.css";
+import icon from "../../../assets/icon.jpg"
 import { useUser } from "../../../hooks/UserContext";
 import { IconlyHide, IconlyShow } from "../icons/Icons";
 import Bullet from "./Bullet";
@@ -86,7 +87,7 @@ const RegisterP2 = ({ onBack }) => {
       <div className="w-full max-w-sm space-y-4 bg-white p-4 md:p-6 lg:p-8 rounded-4xl mx-auto shadow-form">
         <div className="flex flex-col md:flex-row items-center md:items-center justify-between mb-4 space-y-2 md:space-y-1">
           <div className="flex flex-row items-center gap-2 border-r border-r-black pr-2 py-1">
-            <img src="src/assets/icon.jpg" className="w-12 h-12" />
+            <img src={icon} className="w-12 h-12" />
             <h1 className="text-xl md:text-[30px] font-outfit-semibold">
               EventSpace
             </h1>

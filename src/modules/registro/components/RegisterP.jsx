@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../index.css";
+import icon from "../../../assets/icon.jpg"
+import mx from "../icons/MX.png"
 import { useUser } from "../../../hooks/UserContext";
 import Toast from "../../../components/Toast";
 
@@ -76,7 +78,7 @@ export default function RegisterP({onNext}){
         {/*shadow-form para ver*/}
         <div className="flex flex-col md:flex-row items-center md:items-center justify-between mb-4 space-y-2 md:space-y-1">
           <div className="flex flex-row items-center gap-2 border-r border-r-black pr-2 py-1">
-            <img src="src/assets/icon.jpg" className="w-12 h-12" />
+            <img src={icon} className="w-12 h-12" />
             <h1 className="text-xl md:text-[30px] font-outfit-semibold">
               EventSpace
             </h1>
@@ -128,7 +130,7 @@ export default function RegisterP({onNext}){
             />
             <label className="pl-2">Teléfono de contacto</label>
             <div className="flex flex-row items-center border border-gray-300 rounded-xl px-2 focus-within:border-black focus-within:border-2">
-              <img src="src/modules/registro/icons/MX.png" className="mx-2" />
+              <img src={mx} className="mx-2" />
               <span className="pl-2 pr-2 border-r border-black">+52</span>
               <input
                 type="tel"

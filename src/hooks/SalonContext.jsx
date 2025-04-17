@@ -8,10 +8,12 @@ export const SalonProvider = ({ children }) => {
     id: "",
     nombre: "",
     tipo: "",
-    capacidad: "",
+    capacidadMin: "",
+    capacidadMax: "",
     horarioApertura: "",
     horarioCierre: "",
     descripcion: "",
+    ubicacion: "",
     imagenes: [],
     precio: "",
   });
@@ -35,25 +37,51 @@ export const SalonProvider = ({ children }) => {
     localStorage.setItem("salonData", JSON.stringify(salonData));
   }, [salon, salonData]);
 
-  const saveSalonData = (info) => {
-    const id = info.id || generateId();
-    const newSalon = { ...info, id };
+  // ✅ Función general
+  const saveSalonData = (partialData) => {
+    setSalonData((prevData) => {
+      const merged = { ...prevData, ...partialData };
+      const id = merged.id || generateId();
 
-    const imagenesConURL = info.imagenes.map((file) =>
-      typeof file === "string" ? file : URL.createObjectURL(file)
-    );
+      const imagenes = merged.imagenes?.map((file) =>
+        typeof file === "string" ? file : URL.createObjectURL(file)
+      ) || [];
 
-    const dataConURLs = {
-      ...newSalon,
-      imagenes: imagenesConURL,
-    };
+      const fullData = {
+        ...merged,
+        id,
+        imagenes,
+      };
 
-    setSalonData(dataConURLs);
-    setSalon(dataConURLs);
+      setSalon(fullData); // si necesitas guardar para otro uso
+      return fullData;
+    });
+  };
+
+  // ✅ Funciones específicas
+  const saveSalonInfo = (info) => {
+    saveSalonData(info); // ejemplo: { nombre, descripcion }
+  };
+
+  const saveSalonUbicacion = (ubicacion) => {
+    saveSalonData(ubicacion); // ejemplo: { estado, ciudad }
+  };
+
+  const saveSalonImg = (imagenes) => {
+    saveSalonData({ imagenes }); // array de File o strings
   };
 
   return (
-    <SalonContext.Provider value={{ salon, salonData, saveSalonData }}>
+    <SalonContext.Provider
+      value={{
+        salon,
+        salonData,
+        saveSalonData,
+        saveSalonInfo,
+        saveSalonUbicacion,
+        saveSalonImg,
+      }}
+    >
       {children}
     </SalonContext.Provider>
   );

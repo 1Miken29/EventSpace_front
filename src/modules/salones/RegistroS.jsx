@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { useSalon } from "../../hooks/SalonContext";
 import { useNavigate } from "react-router-dom";
+import RS1 from "./components/formularios/RS1";
+import RS2 from "./components/formularios/RS2";
+import RS3 from "./components/formularios/RS3";
 
 export default function RegisterS() {
   const navigate = useNavigate();
   const { saveSalonData } = useSalon();
   const [archivos, setArchivos] = useState([]);
+  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     nombre: "",
     tipo: "",
@@ -48,7 +52,17 @@ export default function RegisterS() {
   return (
     <>
       <div className="flex items-center justify-center h-screen">
-        <form onSubmit={handleSubmit} className="flex flex-row gap-4 font-outfit">
+        {step === 1 ? (
+          <RS1 onNext={() => setStep(2)} />
+        ) : step === 2 ? (
+          <RS2 onNext={() => setStep(3)} />
+        ) : (
+          <RS3 />
+        )}
+        {/* {<form
+          onSubmit={handleSubmit}
+          className="flex flex-row gap-4 font-outfit"
+        >
           <div className="flex flex-col w-[350px] p-9 border border-[#8B5DFF]/70 bg-[#8B5DFF]/10 rounded-4xl gap-2">
             <span className="text-[#8B5DFF] font-semibold">
               Nombre del salón
@@ -119,11 +133,6 @@ export default function RegisterS() {
                 />
               </div>
             </div>
-            {/*<div className="flex justify-center">
-              <button className="border border-[#8B5DFF] mt-6 py-1 px-9 bg-[#8B5DFF]/70 text-white rounded-4xl">
-                Siguiente
-              </button>
-            </div>*/}
           </div>
           <div className="flex flex-col w-[350px] p-9 border border-[#8B5DFF]/70 bg-[#8B5DFF]/10 rounded-4xl gap-2">
             <span className="text-[#8B5DFF] font-semibold">
@@ -135,11 +144,6 @@ export default function RegisterS() {
               value={formData.descripcion}
               onChange={handleChange}
             />
-            {/*<div className="flex justify-center">
-              <button className="border border-[#8B5DFF] mt-6 py-1 px-9 bg-[#8B5DFF]/70 text-white rounded-4xl">
-                Siguiente
-              </button>
-            </div>*/}
           </div>
           <div className="flex flex-col justify-between w-[350px] p-9 border border-[#8B5DFF]/70 bg-[#8B5DFF]/10 rounded-4xl gap-2">
             <span className="text-[#8B5DFF] font-semibold">
@@ -179,7 +183,7 @@ export default function RegisterS() {
               </button>
             </div>
           </div>
-        </form>
+        </form>} */}
       </div>
     </>
   );

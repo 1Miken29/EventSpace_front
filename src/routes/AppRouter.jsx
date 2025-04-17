@@ -9,7 +9,7 @@ export const AppRouter = () => {
   console.log("usuario actual:", user);
 
   if (isLoading) {
-    return <div>Cargando...</div>; // o un spinner bonito
+    return <div>Cargando...</div>;
   }
 
   return (

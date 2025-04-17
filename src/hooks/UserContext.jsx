@@ -25,7 +25,7 @@ export const UserProvider = ({ children }) => {
     if (storedUser) setUser(JSON.parse(storedUser));
     if (storedUserData) setUserData(JSON.parse(storedUserData));
 
-    setIsLoading(false); // ← después de cargar datos
+    setIsLoading(false);
   }, []);
 
   // ✅ Guardar automáticamente en localStorage cuando cambien

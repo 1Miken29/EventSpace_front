@@ -1,11 +1,12 @@
 import { terminos } from "../../assets/data";
+import icon from "../../assets/icon.jpg"
 import CardTyC from "./components/CardTyC";
 
 export default function TyC() {
   return (
     <div className="relative h-screen overflow-y-auto">
       <header className="px-11 py-[18px] flex flex-row items-center font-outfit">
-        <img src="src/assets/icon.jpg" className="w-12 h-12 mx-4" />
+        <img src={icon} className="w-12 h-12 mx-4" />
         <h1 className="text-xl md:text-2xl font-outfit-semibold">EventSpace</h1>
       </header>
       <div className="p-11">
